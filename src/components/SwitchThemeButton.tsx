@@ -14,7 +14,7 @@ const SwitchThemeButton = () => {
   }, []);
 
   return (
-    <Button onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")} variant="outline" size="icon" suppressHydrationWarning>
+    <Button className="rounded-full shadow-xl" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")} variant="default" size="icon" suppressHydrationWarning>
       {isClient && resolvedTheme === "dark" ? <TbSun size="1.25rem" suppressHydrationWarning /> : <TbMoonFilled size="1.25rem" suppressHydrationWarning />}
     </Button>
   );
