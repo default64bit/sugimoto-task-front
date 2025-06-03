@@ -1,6 +1,13 @@
 import ProductListFetcher from "@/components/products/ProductList.fetcher";
 import ProductListLoader from "@/components/products/ProductList.loader";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: `Apple Store`,
+  };
+};
 
 export default function Home() {
   return (
