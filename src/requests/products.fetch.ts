@@ -19,17 +19,15 @@ export const getProductsList = cache(async (mode: "server" | "client", query: Qu
 
   if (mode === "server") requestInit = await addServerHeaders(requestInit);
 
-  const R = await fetch(`${UrlBase}/product/with-pagination?${queryParams.join("&")}`, requestInit)
+  const R = await fetch(`${UrlBase}/products/?${queryParams.join("&")}`, requestInit)
     .then((response) => response)
     .catch((error) => {
       console.error({ error });
       return new Response(error, { status: 500, statusText: "Internal Error" });
     });
 
-  if (R.status >= 400) {
-    console.error({ url: R.url, status: R.status, statusText: R.statusText });
-    throw Error(`Couldn't get the products`, { cause: R.status });
-  }
+  if (R.status >= 400) console.error({ url: R.url, status: R.status, statusText: R.statusText });
+  if (R.ok) return await R.json().catch((e) => ({ page: 1, pageTotal: 1, records: [], total: 0 }));
 
-  return (await R.json().catch((e) => {})) || [];
+  return { page: 1, pageTotal: 1, records: [], total: 0 };
 });
