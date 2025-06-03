@@ -1,24 +1,7 @@
 "use client";
+import { Product } from "@/models/product.interface";
 import { useReducer, createContext, Dispatch, useContext } from "react";
 
-type Product = {
-  id: string;
-  images: string[];
-  name: string;
-  desc: string;
-  price: number;
-  options: {
-    id: string;
-    name: string;
-    desc: string;
-    optionValues: {
-      id: string;
-      value: string;
-      desc: string;
-      extraAddedPrice: number;
-    }[];
-  }[];
-};
 type actionType = { type: "setProduct"; product: Product };
 
 const ProductInital: Product = {

@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" dir="ltr">
       <body className={`flex flex-col items-center w-full ${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Provider>
-          <main className="flex flex-col items-center justify-center gap-6 px-4 md:px-10 w-full max-w-[1680px]">
+          <main className="flex flex-col items-center justify-center gap-6 px-4 md:px-10 pb-10 w-full max-w-[1680px]">
             <Header />
             {children}
           </main>
