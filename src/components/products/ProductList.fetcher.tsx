@@ -11,7 +11,7 @@ const ProductListFetcher = async () => {
           <ProductCard product={product} key={i} />
         ))}
         {!records.length && <span className="text-rose-500/75">No products found!</span>}
-      </div>
+      </div> 
     </>
   );
 };

@@ -31,3 +31,22 @@ export const getProductsList = cache(async (mode: "server" | "client", query: Qu
 
   return { page: 1, pageTotal: 1, records: [], total: 0 };
 });
+
+export const getSingleProduct = cache(async (mode: "server" | "client", productId: string): Promise<Product | undefined> => {
+  const UrlBase = mode === "server" ? process.env.API_BASE_URL : "/api";
+  let requestInit: RequestInit = { method: "GET", next: { revalidate: 0 } };
+
+  if (mode === "server") requestInit = await addServerHeaders(requestInit);
+
+  const R = await fetch(`${UrlBase}/products/${productId}`, requestInit)
+    .then((response) => response)
+    .catch((error) => {
+      console.error({ error });
+      return new Response(error, { status: 500, statusText: "Internal Error" });
+    });
+
+  if (R.status >= 400) console.error({ url: R.url, status: R.status, statusText: R.statusText });
+  if (R.ok) return await R.json().catch((e) => undefined);
+
+  return undefined;
+});

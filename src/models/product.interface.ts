@@ -18,4 +18,11 @@ export interface Product {
       extraAddedPrice: number;
     }[];
   }[];
+  reviews: {
+    id: string;
+    user: string;
+    reviewText: string;
+    rating: number;
+    createdAt: Date;
+  }[];
 }
