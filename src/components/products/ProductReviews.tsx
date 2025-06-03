@@ -1,4 +1,4 @@
-import { TbPencilPlus, TbSparkles } from "react-icons/tb";
+import { TbPencilPlus, TbSparkles, TbStar, TbStarFilled } from "react-icons/tb";
 import { Button } from "../ui/Button";
 import { Product } from "@/models/product.interface";
 import NewReviewDialog from "./NewReviewDialog";
@@ -21,13 +21,25 @@ const ProductReviews = ({ reviews, productId }: { reviews: Product["reviews"]; p
             <span className="border bg-neutral-200/20 rounded-xl p-4">No review yet! Be the first to add one 👽</span>
           </>
         )}
-        <ul>
+        <ul className="flex flex-col gap-4">
           {reviews.map((review, i) => (
-            <li className="" key={i}>
-              <div className="flex gap-4 w-full">
-                <span>{review.user}</span>
-                <span>{review.rating}</span>
+            <li className="flex flex-col gap-2 w-full border p-4 rounded-xl" key={i}>
+              <div className="flex items-center justify-between gap-4 w-full">
+                <span className="text-xl">{review.user}</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex items-center gap-1">
+                    {Array.from(Array(review.rating)).map((v, i) => (
+                      <TbStarFilled size="1.25rem" key={i} />
+                    ))}
+                    {Array.from(Array(5 - review.rating)).map((v, i) => (
+                      <TbStar size="1.25rem" key={i} />
+                    ))}
+                  </div>
+                  <span>{review.rating} Stars</span>
+                </div>
               </div>
+              <p className="whitespace-pre-line">{review.reviewText}</p>
+              <small className="w-fit bg-neutral-200/30 p-1 px-4 rounded-full">{Intl.DateTimeFormat("en", { dateStyle: "long", timeStyle: "short" }).format(new Date(review.createdAt))}</small>
             </li>
           ))}
         </ul>
