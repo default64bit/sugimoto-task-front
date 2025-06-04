@@ -1,15 +1,41 @@
 "use client";
-
 import { Product } from "@/models/product.interface";
 import { ProductContext } from "@/providers/ProductContextProvider";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button } from "../ui/Button";
 import { TbSparkles } from "react-icons/tb";
 import ProductReviews from "./ProductReviews";
+import { streamingFetch } from "@/lib/utils";
+import { Skeleton } from "../ui/Skeleton";
 
 const ProductInfo = ({ product }: { product: Product }) => {
   const productStore = useContext(ProductContext);
+
+  const [gettingAiInfo, setGettingAiInfo] = useState<boolean>(false);
+  const [summarized, setSummarized] = useState<boolean>(false);
+  const [summary, setSummary] = useState<string>("");
+
+  const summorizeDescription = async () => {
+    if (gettingAiInfo || summarized) return;
+    setGettingAiInfo(true);
+
+    const response = await fetch(`http://localhost:3001/products/${product.id}/summarize`, {
+      method: "POST",
+      body: JSON.stringify({ type: "description" }),
+      headers: { "content-type": "application/json" },
+    });
+
+    setGettingAiInfo(false);
+    setSummarized(true);
+
+    let content = "";
+    const reader = response.body?.getReader();
+    for await (const chunk of streamingFetch(reader)) {
+      content += chunk;
+      setSummary(content);
+    }
+  };
 
   return (
     <>
@@ -27,10 +53,18 @@ const ProductInfo = ({ product }: { product: Product }) => {
           <div className="flex flex-col gap-4 border bg-neutral-200/20 p-4 rounded-xl">
             <div className="flex flex-wrap justify-between gap-2">
               <h3 className="font-bold text-2xl">Description</h3>
-              <Button className="flex gap-2" size="sm" variant="outline">
+              <Button className="flex gap-2" size="sm" variant="outline" onClick={summorizeDescription}>
                 <TbSparkles className="text-violet-500/90" size="1.2rem" /> Summorize
               </Button>
             </div>
+            {gettingAiInfo && (
+              <div className="flex flex-col gap-2 w-full border p-4 rounded-xl bg-neutral-500/15">
+                <Skeleton className="w-full h-3" />
+                <Skeleton className="w-full h-3" />
+                <Skeleton className="w-7/12 h-3" />
+              </div>
+            )}
+            {summary && <div className="flex flex-col gap-2 w-full border p-4 rounded-xl bg-neutral-500/15">{summary}</div>}
             <p className="text-lg whitespace-pre-line rounded-lg">{product.desc}</p>
           </div>
           {product.options.map((option, i) => (
