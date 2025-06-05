@@ -1,8 +1,8 @@
 "use client";
 import { Product } from "@/models/product.interface";
-import { ProductContext } from "@/providers/ProductContextProvider";
+// import { ProductContext } from "@/providers/ProductContextProvider";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/Button";
 import { TbSparkles } from "react-icons/tb";
 import ProductReviews from "./ProductReviews";
@@ -10,7 +10,7 @@ import { streamingFetch } from "@/lib/utils";
 import { Skeleton } from "../ui/Skeleton";
 
 const ProductInfo = ({ product }: { product: Product }) => {
-  const productStore = useContext(ProductContext);
+  // const productStore = useContext(ProductContext);
 
   const [gettingAiInfo, setGettingAiInfo] = useState<boolean>(false);
   const [summarized, setSummarized] = useState<boolean>(false);

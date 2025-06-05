@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-import setCsrf from "@/middlewares/setCsrf";
 
 export const _GD = async (request: NextRequest, { params }: { params: { slug: string } }): Promise<Response> => {
   // csrf checks
@@ -25,7 +24,7 @@ export const _GD = async (request: NextRequest, { params }: { params: { slug: st
   // headers.set("Authorization", `Bearer ${request.cookies.get("AuthToken")?.value}`);
 
   const url = `${process.env.API_BASE_URL}${request.nextUrl.pathname}${request.nextUrl.search}`.replaceAll("/api/", "/");
-  let res = await fetch(url, {
+  const res = await fetch(url, {
     method: request.method,
     body: request.method === "GET" ? null : data,
     headers: headers,
@@ -61,10 +60,10 @@ export const checkCsrf = async (req: NextRequest) => {
 };
 
 export const addServerHeaders = async (requestInit: RequestInit): Promise<RequestInit> => {
-  const { cookies: Cookies } = await import("next/headers");
+  // const { cookies: Cookies } = await import("next/headers");
   // const AuthToken: string = (await Cookies()).get("AuthToken")?.value || "";
 
-  let headers: any = { Accept: "application/json" };
+  const headers: any = { Accept: "application/json" };
   // headers["Authorization"] = `Bearer ${AuthToken}`;
   // headers["serversecret"] = process.env.SERVER_SECRET || "";
   // headers["tt"] = Date.now().toString();

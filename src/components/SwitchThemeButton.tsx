@@ -1,6 +1,5 @@
 "use client";
-import { memo, useContext, useEffect, useState } from "react";
-// import { themeContext } from "@/providers/ThemeProvider";
+import { memo, useEffect, useState } from "react";
 import { TbSun, TbMoonFilled } from "react-icons/tb";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/Button";
@@ -14,7 +13,13 @@ const SwitchThemeButton = () => {
   }, []);
 
   return (
-    <Button className="rounded-full shadow-xl" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")} variant="default" size="icon" suppressHydrationWarning>
+    <Button
+      className="rounded-full shadow-xl"
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      variant="default"
+      size="icon"
+      suppressHydrationWarning
+    >
       {isClient && resolvedTheme === "dark" ? <TbSun size="1.25rem" suppressHydrationWarning /> : <TbMoonFilled size="1.25rem" suppressHydrationWarning />}
     </Button>
   );

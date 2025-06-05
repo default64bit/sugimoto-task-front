@@ -7,7 +7,7 @@ export const getProductsList = cache(async (mode: "server" | "client", query: Qu
   const UrlBase = mode === "server" ? process.env.API_BASE_URL : "/api";
   let requestInit: RequestInit = { method: "GET", next: { revalidate: 0 } };
 
-  let queryParams: string[] = [];
+  const queryParams: string[] = [];
   if (query.search) queryParams.push(`search=${query.search}`);
   if (query.page) queryParams.push(`page=${query.page}`);
   if (query.pp) queryParams.push(`pp=${query.pp}`);

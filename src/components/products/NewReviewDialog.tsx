@@ -1,5 +1,5 @@
 "use client";
-import { TbPencilPlus, TbStar } from "react-icons/tb";
+import { TbPencilPlus } from "react-icons/tb";
 import { Button } from "../ui/Button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/Dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form";

@@ -11,6 +11,7 @@ const ProductInital: Product = {
   desc: "",
   price: 0,
   options: [],
+  reviews: [],
 };
 const contextInitalValue: { value: Product; dispatch: Dispatch<actionType> } = { value: ProductInital, dispatch: () => {} };
 export const ProductContext = createContext(contextInitalValue);

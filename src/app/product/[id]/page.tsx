@@ -2,7 +2,7 @@ import ProductFetcher from "@/components/products/Product.fetcher";
 import ProductLoader from "@/components/products/Product.loader";
 import { Suspense } from "react";
 
-const ProductPage = async ({ params }: { params: { id: string } }) => {
+const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <>
       <Suspense fallback={<ProductLoader />}>

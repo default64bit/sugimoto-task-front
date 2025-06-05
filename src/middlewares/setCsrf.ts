@@ -13,6 +13,7 @@ export default async function main<R extends Response>(req: NextRequest, res: R)
   let newRes: any;
   if (res instanceof Response) newRes = new Response(res.body, res);
   if (res instanceof NextResponse) newRes = new NextResponse(res.body, res);
+  if (!newRes) return res;
 
   const Secure = process.env.SECURE_COOKIES === "true" ? "Secure;" : "";
 

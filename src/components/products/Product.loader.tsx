@@ -1,4 +1,3 @@
-import { Card, CardContent } from "../ui/Card";
 import { Skeleton } from "../ui/Skeleton";
 
 const ProductLoader = () => {
